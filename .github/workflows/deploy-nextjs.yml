@@ -32,6 +32,6 @@ jobs:
     - name: Deploy to Azure Container Apps
       run: |
         az containerapp update \
-          --name nextjs-container-app \
+          --name azure-container-app-1 \
           --resource-group myResourceGroup1 \
           --image ${{ secrets.ACR_LOGIN_SERVER }}/nextjs-app:${{ github.sha }}
