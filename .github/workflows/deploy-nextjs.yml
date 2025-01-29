@@ -1,0 +1,37 @@
+name: Build and Deploy Next.js to Azure Container Apps
+
+on:
+  push:
+    branches:
+      - main  # Runs workflow when pushing to main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+
+    # Log in to Azure Container Registry (ACR)
+    - name: Log in to ACR
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+
+    # Build and Push Docker Image
+    - name: Build and Push Docker Image to ACR
+      run: |
+        docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/nextjs-app:${{ github.sha }} .
+        docker push ${{ secrets.ACR_LOGIN_SERVER }}/nextjs-app:${{ github.sha }}
+
+    # Deploy to Azure Container Apps
+    - name: Deploy to Azure Container Apps
+      run: |
+        az containerapp update \
+          --name nextjs-container-app \
+          --resource-group myResourceGroup1 \
+          --image ${{ secrets.ACR_LOGIN_SERVER }}/nextjs-app:${{ github.sha }}
