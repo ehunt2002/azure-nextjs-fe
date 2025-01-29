@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 
 export default function Home() {
-    const [data, setData] = useState(null);
+    const [data, setData] = useState([{}]);
 
     useEffect(() => {
-        fetch("http://backend:5000/api/data")  // Use backend container name
-            .then((res) => res.json())
-            .then((data) => setData(data.message));
+        fetch("https://localhost:3000/api/users")  // Use backend container name
+            .then((res) => 
+                res.json())
+            .then((data) => setData(data));
     }, []);
 
     return (
