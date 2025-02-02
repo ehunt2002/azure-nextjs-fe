@@ -4,7 +4,7 @@ export default function Home() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
-        fetch("https://azure-container-app-backend1.internal.calmpebble-705cf87d.australiaeast.azurecontainerapps.io/")  // Use backend container name
+        fetch("/api/container")  // Use backend container name
             .then((res) => 
                 res.json())
             .then((data) => setData(data));
