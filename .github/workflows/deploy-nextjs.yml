@@ -28,9 +28,9 @@ jobs:
         docker build -t ${{ secrets.ACR_LOGIN_SERVER }}/nextjs-app:latest-2 .
         docker push ${{ secrets.ACR_LOGIN_SERVER }}/nextjs-app:latest-2
     # Deploy to Azure Container Apps
-    - name: Deploy to Azure Container Apps
-      run: |
-        az containerapp update \
-          --name azure-container-app-1 \
-          --resource-group myResourceGroup1 \
-          --image ${{ secrets.ACR_LOGIN_SERVER }}/nextjs-app:${{ github.sha }}
+    # - name: Deploy to Azure Container Apps
+    #   run: |
+    #     az containerapp update \
+    #       --name azure-container-app-1 \
+    #       --resource-group myResourceGroup1 \
+    #       --image ${{ secrets.ACR_LOGIN_SERVER }}/nextjs-app:${{ github.sha }}
