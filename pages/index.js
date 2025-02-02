@@ -4,10 +4,11 @@ export default function Home() {
     const [data, setData] = useState(null);
 
     useEffect(() => {
+        debugger;
         fetch("/api/container")  // Use backend container name
             .then((res) => 
                 res.json())
-            .then((data) => setData(data));
+            .then((data) => setData(data.message));
     }, []);
 
     return (
